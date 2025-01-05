@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+{% for c in category %}
+	<h3>{{c.catName}}</h3>
+	<h5>{{c.catSpec}}</h5>
+{% endfor%}
+
+{% endblock main %}

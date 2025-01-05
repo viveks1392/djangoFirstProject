@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale">
+                <title>Tourism</title>
+				<link rel="stylesheet" href="{% static '/css/style.css' %}">
+				</head>
+				
+				<body>
+				<header>
+				<div class="logo">Tourism</div>
+				<nav>
+					<a href="{% url 'about' %}">About</a>
+					<a href="{% url 'places' %}">Places</a>
+					<a href="{% url 'booking' %}">Booking</a>
+					<a href="{% url 'contact' %}">Contact</a>
+				
+				
+				</nav>
+				</header>
+				
+		
+				{% block main %}
+				{% endblock main %}
+
+				<footer>
+				<p>&copy;2024 Tourism. All rights reserved.</p>
+				
+				</footer>
+				
+				</body>
+				</html>
+				
