@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  django:
+    build:
+      context: .
+    ports:
+      - '8000:8000'
+    networks:
+      - two-tier-network
+    environment:
+      DB_NAME: myproject
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_HOST: postgres-service
+      DB_PORT: '5432'
+  postgres-service:
+    image: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - two-tier-network
+    environment:
+      POSTGRES_DB: myproject
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+networks:
+  two-tier-network: null
+
