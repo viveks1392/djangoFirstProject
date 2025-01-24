@@ -1,0 +1,30 @@
+pipeline {
+    agent {label "dev"}
+
+    stages {
+        stage('Code Clone') {
+            steps {
+                git url: "https://github.com/viveks1392/djangoFirstProject.git", branch:"main"
+            }
+        }
+        stage('Build Stage'){
+            steps{
+                sh "docker build -t django-backend:v1 ."
+            }
+        }
+        stage('Push Stage'){
+            steps{
+                withCredentials([usernamePassword('credentialsId':"dockerCred", passwordVariable:"dockerPass", usernameVariable:"dockerUser")]){
+                    sh "docker login -u ${env.dockerUser} -p ${env.dockerPass}"
+                    sh "docker image tag django-backend:v1 ${env.dockerUser}/django-backend:v1"
+                    sh "docker push ${env.dockerUser}/django-backend:v1"
+                }
+            }
+        }
+        stage('Delpoy Stage'){
+            steps{
+                sh "docker run -d -p 8000:8000 django-backend:v1"
+            }
+        }
+    }
+}
